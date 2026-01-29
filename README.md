@@ -1,8 +1,8 @@
-# 🏥 Système de Gestion Médicale - Application Angular
+# 🏥 MyMed - Application Angular
 
 ## 📋 Vue d'ensemble
 
-**MediCare Management System** est une application web moderne de gestion de cabinet médical développée avec Angular 18. Elle offre une interface intuitive et complète pour gérer les patients, leurs dossiers médicaux, les rendez-vous et le personnel médical.
+**MyMed Management System** est une application web moderne de gestion de cabinet médical développée avec Angular 18. Elle offre une interface intuitive et complète pour gérer les patients, leurs dossiers médicaux, les rendez-vous et le personnel médical.
 
 ### 🎯 Objectifs principaux
 
@@ -554,33 +554,12 @@ Affichage en grille de cartes professionnelles contenant :
 
 ---
 
-## 📞 Support et Documentation
-
-### Ressources Disponibles
-
-**Documentation technique :**
-- README.md : Installation et configuration
-- QUICK_START.md : Démarrage en 8 étapes
-- IMPLEMENTATION_GUIDE.md : Guide d'implémentation complet
-- APPOINTMENTS_MODULE_GUIDE.md : Guide spécifique au module RDV
-
-**Guides utilisateurs :**
-- Manuel secrétariat : Gestion quotidienne
-- Manuel médecin : Utilisation clinique
-- Manuel administrateur : Configuration système
-
-**Support technique :**
-- Email : support@medicare-system.com
-- Hotline : +33 1 23 45 67 89
-- FAQ en ligne : https://docs.medicare-system.com
-
----
 
 ## 📄 Licence et Crédits
 
 **Licence :** MIT
 
-**Développé par :** MediCare Frontend Team
+**Développé par :** MyMed Frontend Team
 
 **Version :** 2.0.0
 
@@ -590,7 +569,7 @@ Affichage en grille de cartes professionnelles contenant :
 
 ## 🎓 Conclusion
 
-**MediCare Management System** est une solution complète, moderne et intuitive qui digitalise l'ensemble des processus d'un cabinet médical. De la prise de rendez-vous à la gestion des dossiers médicaux, en passant par le suivi des patients et la coordination de l'équipe médicale, chaque fonctionnalité a été pensée pour améliorer l'efficacité et la qualité des soins.
+**MyMed Management System** est une solution complète, moderne et intuitive qui digitalise l'ensemble des processus d'un cabinet médical. De la prise de rendez-vous à la gestion des dossiers médicaux, en passant par le suivi des patients et la coordination de l'équipe médicale, chaque fonctionnalité a été pensée pour améliorer l'efficacité et la qualité des soins.
 
 **Points forts :**
 - ✅ Interface utilisateur élégante et professionnelle
@@ -603,4 +582,4 @@ Affichage en grille de cartes professionnelles contenant :
 
 ---
 
-*Pour toute question ou suggestion, n'hésitez pas à contacter l'équipe de développement.*
+*Pour toute question ou suggestion, n'hésitez pas à me contacter hamzabeng64@gmail.com.*
