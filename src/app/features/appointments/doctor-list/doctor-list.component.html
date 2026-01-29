@@ -1,0 +1,236 @@
+<div class="min-h-screen bg-background-light dark:bg-background-dark">
+  <div class="flex-1 overflow-y-auto p-6 lg:p-8 scroll-smooth">
+    <div class="max-w-[1400px] mx-auto flex flex-col gap-8 pb-10">
+      
+      <!-- Page Heading -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Find a Doctor</h1>
+          <p class="text-slate-500 dark:text-slate-400 mt-1 text-base">
+            Browse our list of specialists and book your appointment.
+          </p>
+        </div>
+        <button class="bg-primary hover:bg-blue-700 text-white h-10 px-5 rounded-lg text-sm font-semibold shadow-md shadow-primary/30 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-[20px]">add</span>
+          Add New Doctor
+        </button>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col md:flex-row gap-4 items-center">
+        
+        <!-- Search Input -->
+        <div class="relative flex-1 w-full">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined">search</span>
+          <input 
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+            class="w-full h-12 pl-12 pr-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-slate-400 transition-all" 
+            placeholder="Search by doctor name..." 
+            type="text"/>
+        </div>
+
+        <!-- Specialty Dropdown -->
+        <div class="relative w-full md:w-56">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined">medical_services</span>
+          <select 
+            [(ngModel)]="selectedSpecialty"
+            (ngModelChange)="onSpecialtyChange()"
+            class="w-full h-12 pl-12 pr-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+            <option value="">All Specialties</option>
+            <option *ngFor="let specialty of specialties" [value]="specialty">{{ specialty }}</option>
+          </select>
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none">expand_more</span>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="relative w-full md:w-48">
+          <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined">sort</span>
+          <select 
+            [(ngModel)]="sortBy"
+            (ngModelChange)="onSortChange()"
+            class="w-full h-12 pl-12 pr-10 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:border-primary focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+            <option value="rating">Top Rated</option>
+            <option value="availability">Available Now</option>
+            <option value="experience">Most Experienced</option>
+          </select>
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 material-symbols-outlined pointer-events-none">expand_more</span>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loading" class="flex items-center justify-center py-20">
+        <app-loading></app-loading>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="error && !loading" class="rounded-xl bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 p-6">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-red-600 dark:text-red-400">error</span>
+          <div>
+            <p class="text-sm font-semibold text-red-900 dark:text-red-100">Error</p>
+            <p class="text-sm text-red-700 dark:text-red-300">{{ error }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Grid -->
+      <div *ngIf="!loading && !error" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+        
+        <div 
+          *ngFor="let doctor of getPaginatedDoctors()"
+          class="group bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col h-full relative overflow-hidden">
+          
+          <!-- Status Badge -->
+          <div 
+            class="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-md text-xs font-bold uppercase tracking-wider"
+            [ngClass]="getStatusBadgeClass(doctor.status)">
+            <span 
+              *ngIf="doctor.status === DoctorStatus.AVAILABLE"
+              class="size-2 rounded-full bg-green-500 animate-pulse"></span>
+            {{ getStatusLabel(doctor.status) }}
+          </div>
+
+          <!-- Doctor Info -->
+          <div class="flex flex-col items-center text-center pb-4 border-b border-dashed border-slate-200 dark:border-slate-700">
+            <div class="size-24 rounded-full p-1 bg-gradient-to-tr from-primary/20 to-transparent mb-4">
+              <div 
+                *ngIf="doctor.photo"
+                class="w-full h-full rounded-full bg-cover bg-center"
+                [style.background-image]="'url(' + doctor.photo + ')'"></div>
+              <div 
+                *ngIf="!doctor.photo"
+                class="w-full h-full rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-400 font-bold text-xl">
+                {{ doctor.firstName.charAt(0) }}{{ doctor.lastName.charAt(0) }}
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">
+              {{ getFullName(doctor) }}
+            </h3>
+
+            <div 
+              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium mb-3"
+              [ngClass]="'bg-' + getSpecialtyColor(doctor.specialty) + '-50 text-' + getSpecialtyColor(doctor.specialty) + '-700 dark:bg-' + getSpecialtyColor(doctor.specialty) + '-900/30 dark:text-' + getSpecialtyColor(doctor.specialty) + '-200'">
+              {{ doctor.specialty }}
+            </div>
+
+            <!-- Rating -->
+            <div class="flex items-center gap-1 text-yellow-400 text-sm font-bold">
+              <span 
+                *ngFor="let star of [1,2,3,4,5]"
+                class="material-symbols-outlined text-[18px]"
+                [style.font-variation-settings]="star <= (doctor.rating || 0) ? 'FILL 1' : 'FILL 0'">
+                star
+              </span>
+              <span class="text-slate-600 dark:text-slate-400 ml-1 font-medium">
+                {{ doctor.rating || 0 }} ({{ doctor.reviewCount || 0 }} reviews)
+              </span>
+            </div>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="py-4 flex flex-col gap-3 flex-1">
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+              <div class="size-8 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 shrink-0">
+                <span class="material-symbols-outlined text-[18px]">mail</span>
+              </div>
+              <span class="truncate">{{ doctor.email }}</span>
+            </div>
+
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+              <div class="size-8 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 shrink-0">
+                <span class="material-symbols-outlined text-[18px]">call</span>
+              </div>
+              <span>{{ doctor.phone }}</span>
+            </div>
+
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+              <div class="size-8 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 shrink-0">
+                <span class="material-symbols-outlined text-[18px]">schedule</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-xs text-slate-400 uppercase font-bold">
+                  {{ isAvailableToday(doctor) ? 'Today' : 'Next Available' }}
+                </span>
+                <span class="font-medium text-slate-900 dark:text-white">
+                  {{ getTodayAvailability(doctor) }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <button 
+            (click)="bookAppointment(doctor)"
+            [disabled]="doctor.status !== DoctorStatus.AVAILABLE"
+            class="w-full mt-auto py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-primary/20"
+            [class.bg-primary]="doctor.status === DoctorStatus.AVAILABLE"
+            [class.hover:bg-blue-700]="doctor.status === DoctorStatus.AVAILABLE"
+            [class.text-white]="doctor.status === DoctorStatus.AVAILABLE"
+            [class.bg-slate-100]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.dark:bg-slate-800]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.text-slate-900]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.dark:text-white]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.border]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.border-slate-200]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.dark:border-slate-700]="doctor.status !== DoctorStatus.AVAILABLE"
+            [class.cursor-not-allowed]="doctor.status !== DoctorStatus.AVAILABLE">
+            {{ doctor.status === DoctorStatus.AVAILABLE ? 'Book Appointment' : 'See Availability' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && !error && filteredDoctors.length === 0" class="flex flex-col items-center justify-center py-20">
+        <span class="material-symbols-outlined text-slate-300 text-[80px] mb-4">person_search</span>
+        <p class="text-slate-500 text-lg font-medium">No doctors found</p>
+        <p class="text-slate-400 text-sm">Try adjusting your search filters</p>
+      </div>
+
+      <!-- Pagination -->
+      <div 
+        *ngIf="!loading && !error && filteredDoctors.length > 0"
+        class="flex items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-6">
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+          Showing <span class="font-semibold text-slate-900 dark:text-white">{{ getResultsRange() }}</span> doctors
+        </p>
+
+        <div class="flex items-center gap-2">
+          <button 
+            (click)="previousPage()"
+            [disabled]="currentPage === 1"
+            class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50 transition-colors disabled:cursor-not-allowed">
+            <span class="material-symbols-outlined text-sm">chevron_left</span>
+          </button>
+
+          <button 
+            *ngFor="let page of getPageNumbers()"
+            (click)="page > 0 ? goToPage(page) : null"
+            [disabled]="page < 0"
+            class="px-3 py-2 rounded-lg font-medium text-sm transition-colors"
+            [class.bg-primary]="page === currentPage"
+            [class.text-white]="page === currentPage"
+            [class.hover:bg-blue-700]="page === currentPage"
+            [class.border]="page !== currentPage && page > 0"
+            [class.border-slate-200]="page !== currentPage && page > 0"
+            [class.dark:border-slate-700]="page !== currentPage && page > 0"
+            [class.text-slate-600]="page !== currentPage && page > 0"
+            [class.dark:text-slate-300]="page !== currentPage && page > 0"
+            [class.hover:bg-slate-50]="page !== currentPage && page > 0"
+            [class.dark:hover:bg-slate-800]="page !== currentPage && page > 0"
+            [class.cursor-default]="page < 0">
+            {{ page > 0 ? page : '...' }}
+          </button>
+
+          <button 
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages"
+            class="px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

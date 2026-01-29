@@ -1,0 +1,50 @@
+// Doctor List Styles
+
+.doctor-card {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// Animated pulse for available status
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// Rating stars hover effect
+.rating-stars {
+  .material-symbols-outlined {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+// Pagination active page
+.page-active {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 2px;
+    background: currentColor;
+  }
+}

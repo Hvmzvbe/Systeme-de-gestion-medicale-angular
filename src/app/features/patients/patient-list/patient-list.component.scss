@@ -1,0 +1,192 @@
+// Patient List Styles
+
+// Table styles
+.table-card {
+  transition: all 0.3s ease;
+}
+
+.table-row {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(59, 130, 246, 0.05);
+    transform: translateX(4px);
+  }
+}
+
+// Loading spinner
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Error container
+.error-container {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Badge animations
+.alert-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+// Filter select hover
+.filter-select {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    border-color: #0066cc;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+// Search input
+.search-input {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+// Action buttons
+.action-btn {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Pagination
+.pagination-btn {
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+  
+  &.active {
+    background-color: #0066cc;
+    color: white;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Smooth scrollbar
+.table-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark .table-scroll::-webkit-scrollbar-thumb {
+  background-color: #475569;
+}
+
+// Responsive table
+@media (max-width: 768px) {
+  .table-row {
+    &:hover {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Status indicators
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  
+  &.active {
+    background-color: #10b981;
+    animation: pulse-dot 2s infinite;
+  }
+  
+  &.inactive {
+    background-color: #6b7280;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+// Card elevation on hover
+.patient-card {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}

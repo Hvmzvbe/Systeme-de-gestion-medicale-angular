@@ -1,0 +1,23 @@
+<div class="flex items-center justify-center p-12">
+  <div class="flex flex-col items-center gap-4">
+    <!-- Spinner -->
+    <div class="relative">
+      <span 
+        class="material-symbols-outlined text-primary animate-spin"
+        [class.text-4xl]="size === 'small'"
+        [class.text-6xl]="size === 'medium'"
+        [class.text-8xl]="size === 'large'">
+        progress_activity
+      </span>
+    </div>
+    
+    <!-- Loading Message -->
+    <p 
+      class="text-slate-600 dark:text-slate-400 font-medium"
+      [class.text-sm]="size === 'small'"
+      [class.text-base]="size === 'medium'"
+      [class.text-lg]="size === 'large'">
+      {{ message }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<aside class="w-72 hidden md:flex flex-col bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 h-full shrink-0">
+  <!-- Logo Section -->
+  <div class="p-6 flex items-center gap-3 border-b border-slate-200 dark:border-slate-700">
+    <div class="bg-primary/10 rounded-lg p-2">
+      <span class="material-symbols-outlined text-primary text-2xl">local_hospital</span>
+    </div>
+    <div>
+      <h1 class="text-slate-900 dark:text-white text-base font-bold">MediCare</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-xs">Management System</p>
+    </div>
+  </div>
+  
+  <!-- Navigation Menu -->
+  <nav class="flex-1 px-4 py-4 flex flex-col gap-1 overflow-y-auto">
+    <a 
+      *ngFor="let item of menuItems"
+      [routerLink]="item.route" 
+      routerLinkActive="bg-primary/10 text-primary dark:bg-primary/20 dark:text-blue-400"
+      [routerLinkActiveOptions]="{exact: false}"
+      class="flex items-center gap-3 px-3 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-200 group">
+      <span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform">
+        {{ item.icon }}
+      </span>
+      <span class="text-sm font-medium">{{ item.label }}</span>
+    </a>
+  </nav>
+
+  <!-- User Profile Section (Bottom) -->
+  <div class="p-4 border-t border-slate-200 dark:border-slate-700 mt-auto">
+    <div class="flex items-center gap-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer">
+      <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+        DR
+      </div>
+      <div class="flex-1">
+        <p class="text-sm font-semibold text-slate-900 dark:text-white">Dr. Admin</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400">admin@medicare.com</p>
+      </div>
+      <span class="material-symbols-outlined text-slate-400 text-[20px]">more_vert</span>
+    </div>
+  </div>
+</aside>

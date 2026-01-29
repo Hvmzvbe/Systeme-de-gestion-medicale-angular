@@ -1,0 +1,30 @@
+// Header Component Styles
+
+header {
+  backdrop-filter: blur(8px);
+}
+
+// Search input focus styles
+.search-input {
+  transition: all 0.2s ease;
+  
+  &:focus-within {
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+// Notification badge animation
+@keyframes pulse-notification {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.notification-badge {
+  animation: pulse-notification 2s infinite;
+}

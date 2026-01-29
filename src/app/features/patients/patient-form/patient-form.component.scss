@@ -1,0 +1,327 @@
+// Patient Form Styles
+
+// Form container
+.form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// Loading state
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  
+  .spinner {
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Form sections
+.form-section {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+// Input fields
+.form-input {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+  
+  &.invalid {
+    border-color: #ef4444;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+// Error messages
+.error-message {
+  animation: slideDown 0.2s ease;
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Success message
+.success-message {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Tags container
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  animation: slideIn 0.2s ease;
+  
+  &:hover {
+    background-color: #bfdbfe;
+  }
+  
+  .remove-tag {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: #dc2626;
+      transform: scale(1.2);
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Dark mode tags
+.dark .tag {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+  
+  &:hover {
+    background-color: rgba(59, 130, 246, 0.3);
+  }
+}
+
+// Tag input
+.tag-input {
+  transition: all 0.2s ease;
+  
+  &:focus {
+    outline: none;
+    border-color: #0066cc;
+  }
+}
+
+// Submit button
+.submit-btn {
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  &.loading {
+    position: relative;
+    color: transparent;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+    }
+  }
+}
+
+// Cancel button
+.cancel-btn {
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+  }
+}
+
+// Section headers
+.section-header {
+  position: relative;
+  padding-left: 1rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 24px;
+    background-color: #0066cc;
+    border-radius: 2px;
+  }
+}
+
+// Radio buttons
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      color: #0066cc;
+    }
+  }
+  
+  input[type="radio"] {
+    cursor: pointer;
+    
+    &:focus {
+      outline: 2px solid #0066cc;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Select dropdown
+.form-select {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: #0066cc;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+// Textarea
+.form-textarea {
+  transition: all 0.2s ease;
+  resize: vertical;
+  min-height: 100px;
+  
+  &:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  }
+}
+
+// Required field indicator
+.required {
+  color: #ef4444;
+  margin-left: 0.25rem;
+}
+
+// Form grid
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  &.full-width {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Contact urgence section
+.contact-section {
+  background-color: rgba(59, 130, 246, 0.05);
+  border-left: 4px solid #0066cc;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(59, 130, 246, 0.08);
+  }
+}
+
+.dark .contact-section {
+  background-color: rgba(59, 130, 246, 0.1);
+  
+  &:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+  }
+}
+
+// Smooth scroll for long forms
+.form-scroll {
+  scroll-behavior: smooth;
+}

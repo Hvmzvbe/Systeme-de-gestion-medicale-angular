@@ -1,0 +1,58 @@
+// Sidebar Component Styles
+
+aside {
+  transition: transform 0.3s ease;
+}
+
+// Navigation item hover effect
+nav a {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: currentColor;
+    border-radius: 0 4px 4px 0;
+    transition: height 0.2s ease;
+  }
+  
+  &.active::before,
+  &:hover::before {
+    height: 60%;
+  }
+}
+
+// Scrollbar styles
+nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 2px;
+}
+
+.dark nav::-webkit-scrollbar-thumb {
+  background-color: #475569;
+}
+
+// Icon animation on hover
+.material-symbols-outlined {
+  transition: all 0.2s ease;
+}
+
+// Profile section hover
+.profile-section {
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
