@@ -386,80 +386,6 @@ Affichage en grille de cartes professionnelles contenant :
 
 ---
 
-## 🔐 Sécurité et Conformité
-
-### Protection des Données Médicales
-
-**Authentification robuste :**
-- Login sécurisé avec JWT (JSON Web Tokens)
-- Sessions avec timeout automatique
-- Gestion des rôles utilisateurs (Admin, Médecin, Secrétariat, Infirmier)
-
-**Autorisation granulaire :**
-- Guards Angular pour protéger les routes
-- Vérification des permissions côté frontend et backend
-- Accès restreint selon le rôle :
-  - **Médecin** : Accès complet aux dossiers de ses patients
-  - **Secrétariat** : Gestion des RDV, accès limité aux dossiers
-  - **Admin** : Gestion des utilisateurs, statistiques
-
-**Chiffrement des données :**
-- Communication HTTPS uniquement
-- Données sensibles chiffrées en base de données
-- Logs d'accès pour traçabilité
-
-**Conformité RGPD :**
-- Consentement explicite pour la collecte de données
-- Droit à l'oubli : suppression complète des données patient
-- Export des données personnelles
-- Journal des accès aux dossiers médicaux
-
-### Gestion des Erreurs
-
-**Intercepteurs HTTP :**
-- Gestion centralisée des erreurs API
-- Messages d'erreur explicites pour l'utilisateur
-- Retry automatique en cas d'échec réseau
-- Redirection vers login si token expiré
-
-**Notifications utilisateur :**
-- Toasts pour les succès (vert)
-- Alertes pour les erreurs (rouge)
-- Confirmations pour les actions critiques (suppression, annulation)
-
-**Cas d'usage métier :**
-- Tentative d'accès non autorisé : redirection automatique avec message d'erreur
-- Erreur serveur : affichage d'un message clair "Impossible de sauvegarder, veuillez réessayer"
-
----
-
-## 📊 Statistiques et Reporting
-
-### Tableaux de Bord (Dashboard)
-
-**Indicateurs clés de performance (KPIs) :**
-- 📈 **Nombre de consultations** : Jour, semaine, mois
-- 👥 **Nouveaux patients** : Suivi des inscriptions
-- ⏱️ **Taux de présence** : Ratio RDV complétés vs RDV programmés
-- ❌ **Taux d'annulation** : Suivi des no-shows
-- ⭐ **Satisfaction patient** : Moyenne des notes
-
-**Graphiques visuels :**
-- Courbes d'évolution des consultations
-- Diagrammes en secteurs pour les types de consultation
-- Barres comparatives par médecin
-
-**Exports disponibles :**
-- CSV pour analyse Excel
-- PDF pour archivage
-- Rapports mensuels automatiques
-
-**Cas d'usage métier :**
-- Le directeur du cabinet consulte le tableau de bord : +15% de consultations ce mois-ci
-- Détection d'un taux d'annulation élevé pour un médecin → enquête satisfaction
-- Export des données pour comptabilité
-
----
 
 ## 🚀 Workflow Complet : Parcours Patient
 
@@ -521,38 +447,10 @@ Affichage en grille de cartes professionnelles contenant :
 - **Spring Data JPA** : Persistance des données
 - **PostgreSQL** : Base de données relationnelle
 
-### Outils de développement
-- **Angular CLI** : Ligne de commande Angular
-- **NPM** : Gestionnaire de paquets
-- **Git** : Gestion de versions
-- **ESLint** : Analyse statique du code
-- **Prettier** : Formatage automatique
 
 ---
 
-## 📈 Évolutions Futures
 
-### Fonctionnalités Planifiées
-
-**Court terme (3 mois) :**
-- ✅ Téléconsultation vidéo intégrée
-- ✅ Application mobile native (iOS/Android)
-- ✅ Gestion des ordonnances électroniques
-- ✅ Intégration carte Vitale
-
-**Moyen terme (6 mois) :**
-- 📧 Messagerie sécurisée patient-médecin
-- 📱 Notifications push multi-canaux
-- 🗂️ Archivage automatique des documents médicaux
-- 🤖 Assistant IA pour aide au diagnostic
-
-**Long terme (1 an) :**
-- 🔗 Interconnexion avec les hôpitaux
-- 📊 Analyse prédictive des risques de santé
-- 🌍 Support multilingue (français, anglais, arabe)
-- 🏥 Gestion multi-cabinets
-
----
 
 
 ## 📄 Licence et Crédits
